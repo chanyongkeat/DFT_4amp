@@ -1,0 +1,203 @@
+&GLOBAL
+  PROJECT 4amp34isopbe
+  PRINT_LEVEL medium
+  RUN_TYPE ENERGY
+  PREFERRED_DIAG_LIBRARY SL
+&END GLOBAL
+
+&FORCE_EVAL
+  METHOD Quickstep
+  &SUBSYS
+    &CELL
+      ABC 30 30 30
+      PERIODIC NONE #Direction(s) of applied PBC (geometry aspect)
+    &END CELL
+    &TOPOLOGY                    #Section used to center the atomic coordinates in the given box. Useful for big molecules
+      &CENTER_COORDINATES
+      &END
+    &END
+    &COORD
+      O        13.1840271429       11.8453002330       12.7369459907
+      O         7.4278220629       17.1230759040        9.5621146355
+      O        22.3703455480       16.4474526031       20.3102874244
+      N        17.6349746757       14.1540637830       16.6603435759
+      C        10.2279275065       16.0363535322       11.7164305912
+      H        10.9587954731       16.4780533909       12.3949193426
+      C         9.2750203921       16.8589565311       11.1242518157
+      H         9.2446775078       17.9285378774       11.3299246692
+      C         8.3484127867       16.2903203906       10.2471257803
+      C         8.3477107562       14.9307435015        9.9511971002
+      H         7.6083339037       14.5253208614        9.2614098299
+      C         9.3099898305       14.1201401414       10.5494049361
+      H         9.3350946151       13.0530294424       10.3224187803
+      C        10.2695363559       14.6532216712       11.4351867011
+      C        11.2698985384       13.7520745829       11.9864922055
+      H        11.1995336739       12.7028874130       11.6788163890
+      C        12.2957834954       14.0511591885       12.8148356041
+      H        12.4670937446       15.0682065415       13.1698705210
+      C        13.2611632228       12.9947970272       13.1988564403
+      C        14.3717867938       13.3581096497       14.1230359207
+      C        15.5076438341       12.5254881219       14.1444874403
+      H        15.5234119584       11.6627502962       13.4775846304
+      C        16.5686987364       12.7988707883       14.9929745404
+      H        17.4581128484       12.1677343772       15.0145924066
+      C        16.5270390745       13.9256412009       15.8398011408
+      C        15.3753083178       14.7387260441       15.8548569593
+      H        15.3064634109       15.5660518057       16.5633455666
+      C        14.3166605780       14.4612537153       14.9944415589
+      H        13.4271174480       15.0916934700       15.0318071754
+      C        18.0174876489       15.3626998049       16.8958171663
+      H        17.5277543335       16.2343034184       16.4220734725
+      C        19.1449636599       15.6478320309       17.7758812580
+      C        19.9066467729       14.5986740992       18.3273008036
+      H        19.6346859807       13.5725479092       18.0786209741
+      C        20.9884523037       14.8801008060       19.1499045228
+      H        21.6059297045       14.0908368828       19.5789004469
+      C        21.2952602162       16.2147711646       19.4223888327
+      C        20.5531661220       17.2765984455       18.9091644324
+      H        20.8149407849       18.3037068044       19.1577971483
+      C        19.4797533223       16.9809947870       18.0691163749
+      H        18.8893437879       17.7932832916       17.6399370479
+      C        23.4938756753       17.0097838868       19.7832887018
+      F        23.3304326942       18.3156873341       19.4098082071
+      F        24.4472625215       16.9627621145       20.7394138770
+      F        23.9310422698       16.3633738565       18.6648398102
+      C         6.2902878255       17.4557661895       10.2368452697
+      F         5.5514051531       16.3647184249       10.5927097791
+      F         5.5531637657       18.2251648474        9.4080762631
+      F         6.5194404293       18.1491557751       11.4017260032
+    &END COORD
+    &KIND O
+      ELEMENT O
+      BASIS_SET TZVP-GTH-q6
+      POTENTIAL GTH-PBE
+    &END KIND
+    &KIND N
+      ELEMENT N
+      BASIS_SET TZVP-GTH-q5
+      POTENTIAL GTH-PBE
+    &END KIND
+    &KIND C
+      ELEMENT C
+      BASIS_SET TZVP-GTH-q4
+      POTENTIAL GTH-PBE
+    &END KIND
+    &KIND H
+      ELEMENT H
+      BASIS_SET TZVP-GTH-q1
+      POTENTIAL GTH-PBE
+    &END KIND
+    &KIND F
+      ELEMENT F
+      BASIS_SET TZVP-GTH-q7
+      POTENTIAL GTH-PBE
+    &END KIND
+  &END SUBSYS
+
+  &DFT
+    BASIS_SET_FILE_NAME  GTH_BASIS_SETS
+    POTENTIAL_FILE_NAME  POTENTIAL
+    WFN_RESTART_FILE_NAME 4amp34isopbesolvent-RESTART.wfn
+    CHARGE    0 #Net charge
+    MULTIPLICITY    1 #Spin multiplicity
+    &QS
+      METHOD GPW
+      EPS_FILTER_MATRIX 0
+      EPS_DEFAULT 1.0E-10 #Set all EPS_xxx to values such that the energy will be correct up to this value
+    &END QS
+    &POISSON
+      PERIODIC NONE #Direction(s) of PBC for calculating electrostatics
+      PSOLVER WAVELET #The way to solve Poisson equation
+    &END POISSON
+    &XC
+      &VDW_POTENTIAL
+        DISPERSION_FUNCTIONAL PAIR_POTENTIAL
+        &PAIR_POTENTIAL
+          CALCULATE_C9_TERM .TRUE.
+          PARAMETER_FILE_NAME dftd3.dat
+          REFERENCE_C9_TERM .TRUE.
+          REFERENCE_FUNCTIONAL PBE
+          R_CUTOFF 16
+          TYPE DFTD3(BJ)
+          VERBOSE_OUTPUT T
+        &END PAIR_POTENTIAL
+      &END VDW_POTENTIAL
+      &XC_FUNCTIONAL PBE
+      &END XC_FUNCTIONAL
+    &END XC
+    &MGRID
+      CUTOFF  600
+      REL_CUTOFF  80
+      NGRIDS 6
+    &END MGRID
+    &SCCS ON
+      ALPHA [mN/m] 9.88
+      BETA [GPa] -0.5
+      DELTA_RHO 2.0E-5
+      DERIVATIVE_METHOD CD5
+      DIELECTRIC_CONSTANT 36.71
+      EPS_SCCS 1.0E-7
+      EPS_SCF 1.0E-2
+      GAMMA [mN/m] 36.42
+      MAX_ITER 100
+      METHOD Fattebert-Gygi
+      MIXING 0.6
+    &END SCCS
+
+    &SCF
+      MAX_SCF 128
+      EPS_SCF 1.0E-05 #Convergence threshold of density matrix of inner SCF
+      SCF_GUESS RESTART #Use wavefunction from WFN_RESTART_FILE_NAME file as initial guess
+      &DIAGONALIZATION
+        ALGORITHM STANDARD #Algorithm for diagonalization
+      &END DIAGONALIZATION
+      &MIXING #How to mix old and new density matrices
+        METHOD BROYDEN_MIXING #PULAY_MIXING is also a good alternative
+        ALPHA 0.4 #Default. Mixing 40% of new density matrix with the old one
+        NBROYDEN 8 #Default is 4. Number of previous steps stored for the actual mixing scheme
+      &END MIXING
+      ADDED_MOS    70 #Number of virtual MOs to solve
+      &PRINT
+        &RESTART #Note: Use "&RESTART OFF" can prevent generating .wfn file
+          BACKUP_COPIES 0 #Maximum number of backup copies of wfn file. 0 means never
+        &END RESTART
+      &END PRINT
+    &END SCF
+    &PRINT
+      &MO_MOLDEN #Exporting .molden file containing wavefunction information
+        NDIGITS 9 #Output orbital coefficients if absolute value is larger than 1E-9
+      &END MO_MOLDEN
+      &MO_CUBES
+        NHOMO 1
+        NLUMO 1
+        WRITE_CUBE T
+        STRIDE 1 1 1
+        &EACH
+          MD 10
+        &END
+      &END MO_CUBES
+      &SCCS ON
+       &EACH
+        QS_SCF 1
+       &END EACH
+      &END SCCS
+      &DOS ON
+      &END DOS
+    &END PRINT
+  &END DFT
+  &PROPERTIES
+     &TDDFPT #TDDFT calculation with Tamm-Dancoff approximation
+      MAX_ITER 100
+      NSTATES   50 #Number of excited states to solve
+      RKS_TRIPLETS F #If calculating triplet rather than singlet excited states
+      CONVERGENCE [eV] 1E-4 #Convergence criterion of all excitation energies
+      MIN_AMPLITUDE 0.01 #The smallest excitation amplitude to print
+#     RESTART T #If restarting TDDFT calculation. If true, WFN_RESTART_FILE_NAME should be set to previous .tdwfn file
+#     WFN_RESTART_FILE_NAME 4amp15_pbe0-RESTART.tdwfn
+      &PRINT
+        #&DETAILED_ENERGY #Print excitation energies at every Davidson iteration
+        #&END DETAILED_ENERGY
+      &END PRINT
+    &END TDDFPT
+  &END PROPERTIES
+&END FORCE_EVAL
