@@ -1,5 +1,5 @@
  &lr_input
-   prefix = '4amp15',
+   prefix = '4amp15bulk',
    outdir = './outdir',
    disk_io = 'reduced'
  /
