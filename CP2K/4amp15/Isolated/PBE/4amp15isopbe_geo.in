@@ -8,7 +8,7 @@
 &MOTION
   &GEO_OPT
     MAX_ITER 3000
-    OPTIMIZER LBFGS    #Most efficient minimizer, but only for 'small' systems
+    OPTIMIZER LBFGS    
     MAX_DR    4.0E-03
     MAX_FORCE 5.5E-04
     RMS_DR    2.5E-03
