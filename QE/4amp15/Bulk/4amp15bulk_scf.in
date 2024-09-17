@@ -1,6 +1,6 @@
 &CONTROL
   calculation = 'scf'
-  prefix = '4amp15'
+  prefix = '4amp15bulk'
   outdir = './outdir'
   pseudo_dir = '/home/joyeechan1127/q-e-qe-7.2/pp/'
 /
