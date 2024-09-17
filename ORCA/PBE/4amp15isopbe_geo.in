@@ -1,4 +1,4 @@
-! PBE D3BJ def2-TZVP def2/J RIJCOSX tightSCF noautostart miniprint nopop
+! PBE D3BJ def2-TZVP def2/J RIJCOSX opt freq tightSCF noautostart miniprint nopop
 %maxcore  1000
 %geom
 end
